@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "UE5_Tut_2_Custom_Shaders",
+	"Description": "Base UE5 plugin used for the UE5 Tutorial 2 - Creating Custom Shaders",
+	"Category": "Other",
+	"CreatedBy": "Ryan Sweeney",
+	"CreatedByURL": "https://github.com/RyanSweeney987/UE5_Tut_2_Custom_Shaders",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "UE5_Tut_2_Custom_Shaders",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
