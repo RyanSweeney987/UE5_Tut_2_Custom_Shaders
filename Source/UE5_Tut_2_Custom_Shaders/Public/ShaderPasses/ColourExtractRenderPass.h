@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "RenderPassBase.h"
 #include "PostProcess/PostProcessInputs.h"
+#include "RenderPasses/RenderPassBase.h"
 
 // This can be included in your FGlobalShader class
 // Handy to keep them separate as you can use the same Params for multiple shaders

@@ -27,7 +27,7 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "Engine",
+				"Core", "Engine", "UE5ShaderUtils",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
