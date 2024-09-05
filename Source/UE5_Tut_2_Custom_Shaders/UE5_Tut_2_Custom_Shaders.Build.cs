@@ -39,7 +39,7 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
+				"SlateCore", "UE5ShaderUtils",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

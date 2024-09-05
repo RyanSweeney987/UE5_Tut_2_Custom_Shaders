@@ -3,6 +3,7 @@
 #include "ShaderPasses/ColourExtractRenderPass.h"
 
 #include "SceneTexturesConfig.h"
+#include "RenderPasses/RenderPassBase.h"
 
 // The location is set as Plugin/DirectoryMappingSetInModuleInitialise/NameOfShader.usf
 // MainPS is the entry point for the pixel shader - You can have multiple in a file but you have to specify separately
