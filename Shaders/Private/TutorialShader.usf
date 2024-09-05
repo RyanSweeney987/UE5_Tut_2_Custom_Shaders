@@ -1,0 +1,54 @@
+// Include this
+#include "/Engine/Private/Common.ush"
+// Or this, this is included in Common.ush
+// #include "/Engine/Public/Platform.ush"
+
+// These contain various functions and structs that may be useful - not a complete list
+// #include "/Engine/Generated/GeneratedUniformBuffers.ush" 
+// #include "/Engine/Private/DeferredShadingCommon.ush"
+// #include "/Engine/Private/ColorUtils.ush"
+// #include "/Engine/Private/DistanceField/GlobalDistanceFieldShared.ush"
+// #include "/Engine/Private/Random.ush"
+// #include "/Engine/Private/SceneTexturesCommon.ush"
+// #include "/Engine/Private/SceneData.ush"
+// #include "/Engine/Private/Common.ush"
+// #include "/Engine/Private/DeferredShadingCommon.ush"
+// #include "/Engine/Private/ScreenPass.ush"
+// #include "/Engine/Private/SceneTexturesCommon.ush"
+// #include "/Engine/Private/SceneTextureParameters.ush"
+
+#include "Example.ush"
+
+// For better colour matching need to use better colours spaces such as CIELAB
+// https://en.wikipedia.org/wiki/CIELAB_color_space
+
+// And use DeltaE to get the perceptual difference between colours
+// https://zschuessler.github.io/DeltaE/learn/
+//
+// Colour math functions https://www.easyrgb.com/en/math.php
+
+float3 TargetColour;
+
+Texture2D<float4> SceneTexture;
+
+float4 MainPS(float4 SvPosition : SV_POSITION) : SV_Target0
+{
+	const float3 TargetColourHSL = RGBtoHSL(TargetColour);
+
+	const float4 SceneColour = SceneTexture.Load(int3(SvPosition.xy, 0));
+	const float3 SceneColourHSL = RGBtoHSL(SceneColour.rgb);
+
+	const float HueDelta = abs(TargetColourHSL.x - SceneColourHSL.x);
+	const float SaturationDelta = abs(TargetColourHSL.y - SceneColourHSL.y);
+	const float LightnessDelta = abs(TargetColourHSL.z - SceneColourHSL.z);
+
+	// If the scene is within the threshold, return scene colour
+	FLATTEN
+	if(HueDelta < 10 && SaturationDelta < 0.1 && LightnessDelta < 0.1)
+	{
+		return SceneColour;
+	}
+
+	// Otherwise return greyscale version of scene colour
+	return 0.21 * SceneColour.r + 0.72 * SceneColour.g + 0.07 * SceneColour.b; 
+}

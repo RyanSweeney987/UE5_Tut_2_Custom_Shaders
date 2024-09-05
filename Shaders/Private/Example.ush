@@ -1,0 +1,95 @@
+#include "/Engine/Private/Common.ush"
+
+float3 RGBtoLinear(const float3 InColour)
+{
+	const float3 LinearColour;
+	
+	FLATTEN
+	if(InColour.r > 0.04045)
+	{
+		LinearColour.r = pow((InColour.r + 0.055) / 1.055, 2.4);
+	} else
+	{
+		LinearColour.r = InColour.r / 12.92;
+	}
+
+	FLATTEN
+	if(InColour.g > 0.04045)
+	{
+		LinearColour.g = pow((InColour.g + 0.055) / 1.055, 2.4);
+	} else
+	{
+		LinearColour.g = InColour.g / 12.92;
+	}
+
+	FLATTEN
+	if(InColour.b > 0.04045)
+	{
+		LinearColour.b = pow((InColour.b + 0.055) / 1.055, 2.4);
+	} else
+	{
+		LinearColour.b = InColour.b / 12.92;
+	}
+
+	return LinearColour;
+}
+
+float3 RGBtoHSL(float3 InColour)
+{
+	InColour = RGBtoLinear(InColour);
+	//Min. value of RGB
+	const float Min = min(InColour.r, min(InColour.g, InColour.b));    
+	//Max. value of RGB
+	const float Max = max(InColour.r, max(InColour.g, InColour.b));    
+	//Delta RGB value
+	const float Delta = Max - Min;            
+
+	const float L = (Max + Min) / 2;
+
+	float H = 0;
+	float S = 0;
+
+	//Chromatic data...
+	BRANCH
+	if (Delta > 0)                                     
+	{
+		if (L < 0.5)
+		{
+			S = Delta / (Max + Min);
+		}
+		else
+		{
+			S = Delta / (2 - Max - Min);
+		}
+
+		const float DeltaR = (((Max - InColour.r) / 6) + (Delta / 2)) / Delta;
+		const float DeltaG = (((Max - InColour.g) / 6) + (Delta / 2)) / Delta;
+		const float DeltaB = (((Max - InColour.b) / 6) + (Delta / 2)) / Delta;
+
+		FLATTEN
+		if(InColour.r == Max)
+		{
+			H = DeltaB - DeltaG;
+		}
+		else if(InColour.g == Max)
+		{
+			H = (1 / 3) + DeltaR - DeltaB;
+		}
+		else if(InColour.b == Max)
+		{
+			H = (2 / 3) + DeltaG - DeltaR;
+		}
+
+		if(H < 0)
+		{
+			H += 1;
+		}
+		
+		if(H > 1)
+		{
+			H -= 1;
+		}
+	}
+
+	return float3(H, S, L);
+}
