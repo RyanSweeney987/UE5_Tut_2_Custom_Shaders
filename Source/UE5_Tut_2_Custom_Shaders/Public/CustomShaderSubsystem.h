@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/EngineSubsystem.h"
+#include "Rendering/CustomSceneViewExtension.h"
 #include "CustomShaderSubsystem.generated.h"
 
 /**

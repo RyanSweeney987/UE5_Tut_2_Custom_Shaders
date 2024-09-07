@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SceneTexturesConfig.h"
 #include "PostProcess/PostProcessInputs.h"
 #include "RenderPasses/RenderPassBase.h"
 
@@ -14,6 +15,8 @@ BEGIN_SHADER_PARAMETER_STRUCT(FColourExtractParams,)
 
 	// Texture type is same as set in shader 
 	SHADER_PARAMETER_RDG_TEXTURE(Texture2D, SceneColorTexture)
+	SHADER_PARAMETER_STRUCT_REF(FViewUniformShaderParameters, View)
+	SHADER_PARAMETER_STRUCT_INCLUDE(FSceneTextureShaderParameters, SceneTextures)
 
 	// Only needed if we're outputting to a render target
 	RENDER_TARGET_BINDING_SLOTS()
@@ -34,9 +37,10 @@ struct UE5_TUT_2_CUSTOM_SHADERS_API FColourExtractInputParams : public FRenderPa
 {
 	FIntRect Viewport;
 	const FPostProcessingInputs& Inputs;
+	const FSceneView& View;
 	
-	FColourExtractInputParams(FRDGBuilder& InGraphBuilder, const FGlobalShaderMap* InGlobalShaderMap, const FIntRect& InViewport, const FPostProcessingInputs& InInputs)
-		: FRenderPassInputParams(InGraphBuilder, InGlobalShaderMap), Viewport(InViewport), Inputs(InInputs)
+	FColourExtractInputParams(FRDGBuilder& InGraphBuilder, const FGlobalShaderMap* InGlobalShaderMap, const FIntRect& InViewport, const FPostProcessingInputs& InInputs,  const FSceneView& InView)
+		: FRenderPassInputParams(InGraphBuilder, InGlobalShaderMap), Viewport(InViewport), Inputs(InInputs), View(InView)
 	{}
 };
 

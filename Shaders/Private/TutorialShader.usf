@@ -1,11 +1,11 @@
 // Include this
-#include "/Engine/Private/Common.ush"
+// #include "/Engine/Private/Common.ush"
 // Or this, this is included in Common.ush
-// #include "/Engine/Public/Platform.ush"
+#include "/Engine/Public/Platform.ush"
 
 // These contain various functions and structs that may be useful - not a complete list
 // #include "/Engine/Generated/GeneratedUniformBuffers.ush" 
-// #include "/Engine/Private/DeferredShadingCommon.ush"
+#include "/Engine/Private/DeferredShadingCommon.ush"
 // #include "/Engine/Private/ColorUtils.ush"
 // #include "/Engine/Private/DistanceField/GlobalDistanceFieldShared.ush"
 // #include "/Engine/Private/Random.ush"
@@ -24,31 +24,42 @@
 
 // And use DeltaE to get the perceptual difference between colours
 // https://zschuessler.github.io/DeltaE/learn/
-//
-// Colour math functions https://www.easyrgb.com/en/math.php
+
+// Colour math function psuedo code https://www.easyrgb.com/en/math.php
 
 float3 TargetColour;
 
-Texture2D<float4> SceneTexture;
+Texture2D<float4> SceneColorTexture;
+
+// For this effect, using stencils would be more efficient
 
 float4 MainPS(float4 SvPosition : SV_POSITION) : SV_Target0
 {
-	const float3 TargetColourHSL = RGBtoHSL(TargetColour);
+	const float3 TargetColourLab = RGBtoLab(TargetColour);
 
-	const float4 SceneColour = SceneTexture.Load(int3(SvPosition.xy, 0));
-	const float3 SceneColourHSL = RGBtoHSL(SceneColour.rgb);
+	FScreenSpaceData ScreenSpaceData = GetScreenSpaceDataUint(SvPosition.xy, false);
+	const float4 SceneColour = float4(ScreenSpaceData.GBuffer.BaseColor, 0);
+	
+	const float3 SceneColourLab = RGBtoLab(SceneColour.rgb);
 
-	const float HueDelta = abs(TargetColourHSL.x - SceneColourHSL.x);
-	const float SaturationDelta = abs(TargetColourHSL.y - SceneColourHSL.y);
-	const float LightnessDelta = abs(TargetColourHSL.z - SceneColourHSL.z);
-
+	const float DeltaE = DeltaE2000(TargetColourLab, SceneColourLab, 1, 1, 1);
+	
 	// If the scene is within the threshold, return scene colour
-	FLATTEN
-	if(HueDelta < 10 && SaturationDelta < 0.1 && LightnessDelta < 0.1)
-	{
-		return SceneColour;
-	}
+	// 	Delta E	Perception
+	// <= 1.0	Not perceptible by human eyes.
+	// 1 - 2	Perceptible through close observation.
+	// 2 - 10	Perceptible at a glance.
+	// 11 - 49	Colors are more similar than opposite
+	// 100	Colors are exact opposite
 
+	const float4 Colour = SceneColorTexture.Load(int3(SvPosition.xy, 0));
+	
+	FLATTEN
+	if(DeltaE < 45)
+	{
+		return Colour;
+	}
+	
 	// Otherwise return greyscale version of scene colour
-	return 0.21 * SceneColour.r + 0.72 * SceneColour.g + 0.07 * SceneColour.b; 
+	return 0.21 * Colour.r + 0.72 * Colour.g + 0.07 * Colour.b; 
 }

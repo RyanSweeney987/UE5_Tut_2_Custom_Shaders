@@ -1,7 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 using System.IO;
+using EpicGames.Core;
 using UnrealBuildTool;
+using static EpicGames.Core.JsonObject;
 
 public class UE5_Tut_2_Custom_Shaders : ModuleRules
 {
@@ -27,7 +29,10 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "Engine", "UE5ShaderUtils",
+				"Core", 
+				"Engine", 
+				// "Renderer",
+				// "RenderCore",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -39,7 +44,12 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore", "UE5ShaderUtils",
+				"SlateCore",
+				"Projects",
+				"RHI",
+				"Renderer",
+				"RenderCore",
+				"UE5ShaderUtils"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
