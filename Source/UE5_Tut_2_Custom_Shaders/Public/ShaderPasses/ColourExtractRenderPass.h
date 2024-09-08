@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DataDrivenShaderPlatformInfo.h"
 #include "SceneTexturesConfig.h"
 #include "PostProcess/PostProcessInputs.h"
 #include "RenderPasses/RenderPassBase.h"
@@ -27,6 +28,20 @@ class FColourExtractPS : public FGlobalShader
 	DECLARE_EXPORTED_SHADER_TYPE(FColourExtractPS, Global, );
 	using FParameters = FColourExtractParams;
 	SHADER_USE_PARAMETER_STRUCT(FColourExtractPS, FGlobalShader);
+
+	static bool ShouldCompilePermutation(const FGlobalShaderPermutationParameters& Parameters)
+	{
+		return IsFeatureLevelSupported(Parameters.Platform, ERHIFeatureLevel::SM5);
+	}
+	
+	static void ModifyCompilationEnvironment(const FGlobalShaderPermutationParameters& Parameters, FShaderCompilerEnvironment& OutEnvironment)
+	{
+		FGlobalShader::ModifyCompilationEnvironment(Parameters, OutEnvironment);
+
+		// When changing this, you may need to change something in the shader for it to take effect
+		// A simple comment with a bit of gibberish seems to be enough
+		SET_SHADER_DEFINE(OutEnvironment, USE_UNLIT_SCENE_COLOUR, 0);
+	}
 };
 
 /**

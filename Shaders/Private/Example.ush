@@ -3,6 +3,9 @@
 // Functions for converting between colour spaces
 // https://www.easyrgb.com/en/math.php
 
+// Colour to greyscale using Luminosity method
+// https://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/#:~:text=Three%20algorithms%20for%20converting%20color%20to%20grayscale&text=The%20lightness%20method%20averages%20the,G%20%2B%20B)%20%2F%203.
+
 
 float3 RGBtoLinear(const float3 InColour)
 {

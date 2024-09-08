@@ -23,7 +23,7 @@ FRenderPassOutputParams FColourExtractRenderPass::AddPass(FRenderPassInputParams
 	Parameters->SceneTextures = SceneTextures;
 	// Convert the target colour to Lab colour space here instead of in the shader
 	// That will reduce the amount of calculations needed in the shader
-	Parameters->TargetColour = FVector3f(0.0f, 1.0f, 0.0f);
+	Parameters->TargetColour = FVector3f(1.0f, 0.0f, 0.0f);
 	Parameters->View = Params.View.ViewUniformBuffer;
 	// This will load the scene colour texture, and render to it
 	Parameters->RenderTargets[0] = FRenderTargetBinding((*Params.Inputs.SceneTextures)->SceneColorTexture, ERenderTargetLoadAction::ELoad);
