@@ -49,7 +49,7 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 				"RHI",
 				"Renderer",
 				"RenderCore",
-				"UE5ShaderUtils"
+				"UE5ShaderUtils" // Delete this if you don't have the UE5ShaderUtils plugin
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

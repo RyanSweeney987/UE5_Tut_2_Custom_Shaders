@@ -9,6 +9,11 @@
 // MainPS is the entry point for the pixel shader - You can have multiple in a file but you have to specify separately
 IMPLEMENT_SHADER_TYPE(, FColourExtractPS, TEXT("/CustomShaders/private/TutorialShader.usf"), TEXT("MainPS"), SF_Pixel);
 
+/**
+ * Delete this function if you don't have the UE5ShaderUtils plugin
+ * @param InParams  
+ * @return 
+ */
 FRenderPassOutputParams FColourExtractRenderPass::AddPass(FRenderPassInputParams& InParams)
 {
 	// Cast the input params to the correct type to get access to all the values

@@ -28,11 +28,11 @@ void FCustomSceneViewExtension::PrePostProcessPass_RenderThread(FRDGBuilder& Gra
 	RDG_GPU_STAT_SCOPE(GraphBuilder, ColourExtract);
 	RDG_EVENT_SCOPE(GraphBuilder,  "Colour Extract");
 	
-	// Helper function
+	// Helper function - delete these 2 lines if you don't have the UE5ShaderUtils plugin
 	// FColourExtractInputParams InputParams(GraphBuilder, GlobalShaderMap, Viewport, Inputs, View);
 	// FColourExtractRenderPass().AddPass(InputParams);
 	
-	// Simple method
+	// Without the helper function
 	// This is to get the base colour without shading
 	const FSceneTextureShaderParameters SceneTextures = CreateSceneTextureShaderParameters(GraphBuilder, View, ESceneTextureSetupMode::SceneColor | ESceneTextureSetupMode::GBuffers);
 	// This is colour with shading and shadows
