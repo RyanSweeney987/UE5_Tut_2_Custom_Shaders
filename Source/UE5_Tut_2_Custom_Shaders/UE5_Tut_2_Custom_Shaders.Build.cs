@@ -30,9 +30,7 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 			new string[]
 			{
 				"Core", 
-				"Engine", 
-				// "Renderer",
-				// "RenderCore",
+				"Engine"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -48,8 +46,7 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 				"Projects",
 				"RHI",
 				"Renderer",
-				"RenderCore",
-				"UE5ShaderUtils" // Delete this if you don't have the UE5ShaderUtils plugin
+				"RenderCore"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

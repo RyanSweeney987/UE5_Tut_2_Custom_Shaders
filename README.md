@@ -1,3 +1,9 @@
+Notes:
+I've added a branch that contains no helper code other than what comes with UE5 and set it to default.
+The no helper code is under the no-helper branch with the helper code being under the main branch.
+
+//-----------------------------------------------------
+
 This plugin has a dependency on another - UE5ShaderUtils
 You find it here: https://github.com/RyanSweeney987/UE5ShaderUtils
 

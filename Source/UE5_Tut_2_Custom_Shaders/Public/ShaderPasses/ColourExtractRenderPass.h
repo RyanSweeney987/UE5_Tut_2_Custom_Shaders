@@ -6,8 +6,6 @@
 #include "DataDrivenShaderPlatformInfo.h"
 #include "SceneTexturesConfig.h"
 #include "PostProcess/PostProcessInputs.h"
-// Delete this if you don't have the UE5ShaderUtils plugin
-#include "RenderPasses/RenderPassBase.h"
 
 // This can be included in your FGlobalShader class
 // Handy to keep them separate as you can use the same Params for multiple shaders
@@ -43,32 +41,4 @@ class FColourExtractPS : public FGlobalShader
 		// A simple comment with a bit of gibberish seems to be enough
 		SET_SHADER_DEFINE(OutEnvironment, USE_UNLIT_SCENE_COLOUR, 0);
 	}
-};
-
-/**
- * Override for making it easier to pass in the required parameters
- * Can override the FRenderPassOutputParams to return more than just a texture reference
- *
- * Delete this struct if you don't have the UE5ShaderUtils plugin
- */
-struct UE5_TUT_2_CUSTOM_SHADERS_API FColourExtractInputParams : public FRenderPassInputParams
-{
-	FIntRect Viewport;
-	const FPostProcessingInputs& Inputs;
-	const FSceneView& View;
-	
-	FColourExtractInputParams(FRDGBuilder& InGraphBuilder, const FGlobalShaderMap* InGlobalShaderMap, const FIntRect& InViewport, const FPostProcessingInputs& InInputs,  const FSceneView& InView)
-		: FRenderPassInputParams(InGraphBuilder, InGlobalShaderMap), Viewport(InViewport), Inputs(InInputs), View(InView)
-	{}
-};
-
-/**
- * Delete this class if you don't have the UE5ShaderUtils plugin
- */
-class UE5_TUT_2_CUSTOM_SHADERS_API FColourExtractRenderPass : public FRenderPassBase
-{
-public:
-	FColourExtractRenderPass() = default;
-
-	virtual FRenderPassOutputParams AddPass(FRenderPassInputParams& InParams) override;
 };
