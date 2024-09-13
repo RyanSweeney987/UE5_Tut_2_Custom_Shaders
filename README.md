@@ -1,3 +1,5 @@
+[![Sweenus987 on YouTube](https://img.youtube.com/vi/arPFxTrOkog/0.jpg)](https://youtu.be/arPFxTrOkog "Custom Pixel Shader - UE5 C++ Tutorial")
+
 Notes:
 I've added a branch that contains no helper code other than what comes with UE5 and set it to default.
 The no helper code is under the no-helper branch with the helper code being under the main branch.
