@@ -6,7 +6,7 @@ The no helper code is under the no-helper branch with the helper code being unde
 
 //-----------------------------------------------------
 
-This plugin has a dependency on another - UE5ShaderUtils
+The non default branch of this plugin has a dependency on another - UE5ShaderUtils
 You find it here: https://github.com/RyanSweeney987/UE5ShaderUtils
 
 Git:
