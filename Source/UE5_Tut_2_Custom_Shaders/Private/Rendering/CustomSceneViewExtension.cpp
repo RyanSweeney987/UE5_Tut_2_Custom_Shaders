@@ -47,3 +47,24 @@ void FCustomSceneViewExtension::PrePostProcessPass_RenderThread(FRDGBuilder& Gra
 	TShaderMapRef<FColourExtractPS> PixelShader(GlobalShaderMap);
 	FPixelShaderUtils::AddFullscreenPass(GraphBuilder, GlobalShaderMap, FRDGEventName(TEXT("Colour Extract Pass")), PixelShader, Parameters, Viewport);
 }
+
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 5
+void FCustomSceneViewExtension::SubscribeToPostProcessingPass(EPostProcessingPass PassId, const FSceneView& View, FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
+#else
+void FCustomSceneViewExtension::SubscribeToPostProcessingPass(EPostProcessingPass Pass,
+	FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
+#endif
+{
+	if(Pass == EPostProcessingPass::MotionBlur)
+	{
+#if false
+		InOutPassCallbacks.Add(FAfterPassCallbackDelegate::CreateRaw(this, &FCustomSceneViewExtension::CustomPostProcessFunction));
+#endif
+	}
+}
+
+FScreenPassTexture FCustomSceneViewExtension::CustomPostProcessFunction(FRDGBuilder& GraphBuilder, const FSceneView& SceneView, const FPostProcessMaterialInputs& Inputs)
+{
+	// Do something here
+	return FScreenPassTexture();
+}
