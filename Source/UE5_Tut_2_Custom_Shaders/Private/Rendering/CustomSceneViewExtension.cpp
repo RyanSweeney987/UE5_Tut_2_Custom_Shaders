@@ -49,7 +49,7 @@ void FCustomSceneViewExtension::PrePostProcessPass_RenderThread(FRDGBuilder& Gra
 }
 
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 5
-void FCustomSceneViewExtension::SubscribeToPostProcessingPass(EPostProcessingPass PassId, const FSceneView& View, FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
+void FCustomSceneViewExtension::SubscribeToPostProcessingPass(EPostProcessingPass Pass, const FSceneView& View, FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
 #else
 void FCustomSceneViewExtension::SubscribeToPostProcessingPass(EPostProcessingPass Pass,
 	FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
