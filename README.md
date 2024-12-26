@@ -1,5 +1,3 @@
-### Important: This works with the deferred renderer only!
-
 [![Sweenus987 on YouTube](https://img.youtube.com/vi/arPFxTrOkog/0.jpg)](https://youtu.be/arPFxTrOkog "Custom Pixel Shader - UE5 C++ Tutorial")
 
 Notes:
