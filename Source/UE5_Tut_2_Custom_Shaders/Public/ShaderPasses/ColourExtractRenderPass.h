@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DataDrivenShaderPlatformInfo.h"
+// #include "DataDrivenShaderPlatformInfo.h"
 #include "SceneTexturesConfig.h"
-#include "PostProcess/PostProcessInputs.h"
+#include "ShaderParameterStruct.h"
+// #include "PostProcess/PostProcessInputs.h"
 
 // This can be included in your FGlobalShader class
 // Handy to keep them separate as you can use the same Params for multiple shaders

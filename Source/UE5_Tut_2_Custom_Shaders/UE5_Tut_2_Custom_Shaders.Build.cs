@@ -21,9 +21,18 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 		
 		PrivateIncludePaths.AddRange(
 			new string[] {
-				// ... add other private include paths required here ...
+				
 			}
 			);
+		
+		if(Target.Version is { MajorVersion: 5, MinorVersion: > 5 })
+		{
+			PrivateIncludePaths.AddRange(
+				new string[] {
+					Path.Combine(GetModuleDirectory("Renderer"), "Internal"),
+				}
+			);
+		}
 			
 		
 		PublicDependencyModuleNames.AddRange(
@@ -46,7 +55,7 @@ public class UE5_Tut_2_Custom_Shaders : ModuleRules
 				"Projects",
 				"RHI",
 				"Renderer",
-				"RenderCore"
+				"RenderCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

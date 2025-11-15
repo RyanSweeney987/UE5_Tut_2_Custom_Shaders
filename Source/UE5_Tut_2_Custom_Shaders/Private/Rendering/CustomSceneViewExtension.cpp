@@ -6,7 +6,10 @@
 #include "PixelShaderUtils.h"
 #include "RenderGraphEvent.h"
 #include "SceneRenderTargetParameters.h"
+#include "ScreenPass.h"
+#include "SceneRendering.h"
 #include "SceneTexturesConfig.h"
+#include "Runtime/Renderer/Internal/PostProcess/PostProcessInputs.h"
 #include "ShaderPasses/ColourExtractRenderPass.h"
 
 DECLARE_GPU_DRAWCALL_STAT(ColourExtract); // Unreal Insights
