@@ -40,8 +40,8 @@ class FColourExtractPS : public FGlobalShader
 
 		// When changing this, you may need to change something in the shader for it to take effect
 		// A simple comment with a bit of gibberish seems to be enough
-		SET_SHADER_DEFINE(OutEnvironment, USE_UNLIT_SCENE_COLOUR, 0);
+		// SET_SHADER_DEFINE(OutEnvironment, USE_UNLIT_SCENE_COLOUR, 0);
 		// Can also be done this way
-		//OutEnvironment.SetDefine(TEXT("USE_UNLIT_SCENE_COLOUR"), 0);
+		OutEnvironment.SetDefine(TEXT("USE_UNLIT_SCENE_COLOUR"), 0);
 	}
 };
