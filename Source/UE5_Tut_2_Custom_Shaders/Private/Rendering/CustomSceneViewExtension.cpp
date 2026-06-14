@@ -12,7 +12,10 @@
 #include "Runtime/Renderer/Internal/PostProcess/PostProcessInputs.h"
 #include "ShaderPasses/ColourExtractRenderPass.h"
 
-DECLARE_GPU_DRAWCALL_STAT(ColourExtract); // Unreal Insights
+DECLARE_GPU_DRAWCALL_STAT(ColourExtract);
+
+// https://dev.epicgames.com/documentation/en-us/unreal-engine/render-dependency-graph-in-unreal-engine
+// https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-stats-system-overview
 
 FCustomSceneViewExtension::FCustomSceneViewExtension(const FAutoRegister& AutoRegister) : FSceneViewExtensionBase(AutoRegister)
 {
@@ -27,9 +30,10 @@ void FCustomSceneViewExtension::PrePostProcessPass_RenderThread(FRDGBuilder& Gra
 	const FIntRect Viewport = static_cast<const FViewInfo&>(View).ViewRect;
 	// Requires RHI
 	const FGlobalShaderMap* GlobalShaderMap = GetGlobalShaderMap(GMaxRHIFeatureLevel);
+
 	
-	RDG_GPU_STAT_SCOPE(GraphBuilder, ColourExtract); // Unreal Insights
-	RDG_EVENT_SCOPE(GraphBuilder,  "Colour Extract"); // RenderDoc
+	RDG_GPU_STAT_SCOPE(GraphBuilder, ColourExtract); // shows up for stat gpu command
+	RDG_EVENT_SCOPE(GraphBuilder,  "Colour Extract"); // Unreal Insights & RenderDoc
 	
 	// Without the helper function
 	// This is to get the base colour without shading
